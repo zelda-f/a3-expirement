@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>D3 Nice Axes</title>
+    <script src="https://d3js.org/d3.v7.js"></script>
+    <!-- Load revisit-communicate to be able to send data to reVISit -->
+    <script src="../../revisitUtilities/revisit-communicate.js"></script>
+</head>
+
+<body>
+    <svg id="pie-chart"></svg>
+</body>
+
+<script>
+      // Generate the random data
+function generateData() {
+  var data = [];
+  for (var i = 0; i < 5; i++) {
+    var x = Math.random() * 3;
+    x = x.toFixed(2);
+    data.push(x);
+  }
+  return data;
+}
+
+    Revisit.onDataReceive((data) => {
+        const taskID = 'pieChart';
+        const loc = 'belowStimulus';
+
+        // set the dimensions and margins of the graph
+        var width = 450
+        height = 450
+        margin = 40
+
+        // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+        var radius = Math.min(width, height) / 2 - margin
+
+        // Select the SVG and set its size
+        var svg = d3.select("#pie-chart")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+        // Create dummy data
+        var pie_data = generateData()
+        console.log(pie_data);
+
+
+        // Compute the position of each group on the pie:
+        var pie = d3.pie()
+            .value(function (d) { console.log(d); return d; })
+        var data_ready = pie(pie_data)
+        console.log(data_ready);
+
+        // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+        // Create the arc generator
+        var arc = d3.arc()
+            .innerRadius(0)
+            .outerRadius(radius);
+        
+        rotate_deg = Math.random() * 360;
+
+        // Build the pie chart
+        svg.selectAll('path')
+            .data(data_ready)
+            .enter()
+            .append('path')
+            .attr('d', arc)
+            .attr('fill', "lightgrey")
+            .attr('stroke', "black")
+            .style('stroke-width', '2px')
+            .attr('transform', 'rotate(' + rotate_deg + ')')
+
+            // Post answer from the html to reVISit platform
+            .on('click', (e, d) => {
+                var max = d3.max(pie_data);
+                console.log(d.data, max);
+                Revisit.postAnswers({
+                    [taskID]: [d.data, max]
+                });
+
+                svg.selectAll("path").style("fill", "lightgrey"); // Reset colors
+                d3.select(e.target).transition().duration(200).style("fill", "steelblue"); // Highlight clicked bar
+            });
+    });
+</script>
+
+</html>
