@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>D3 Stacked Bar Chart</title>
+    <script src="https://d3js.org/d3.v7.js"></script>
+    <script src="../../revisitUtilities/revisit-communicate.js"></script>
+</head>
+
+<body>
+    <svg id="stacked-bar-chart"></svg>
+</body>
+
+<script>
+    // Generate the random data
+    function generateData() {
+        var data = [];
+        for (var i = 0; i < 5; i++) {
+            var x = Math.random() * 3;
+            x = +x.toFixed(2);
+            data.push(x);
+        }
+        return data;
+    }
+
+    Revisit.onDataReceive((data) => {
+        const taskID = 'stackedBar';
+        const loc = 'belowStimulus';
+
+        var width = 100;
+        var height = 450;
+        var margin = { top: 20, right: 30, bottom: 30, left: 40 };
+
+        var svg = d3.select("#stacked-bar-chart")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        var data = generateData();
+        console.log(data);
+
+        var total = d3.sum(data);
+
+        var yScale = d3.scaleLinear()
+            .domain([0, total])
+            .range([height, 0]);
+
+        var cumulative = 0;
+        svg.selectAll("rect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", 0)
+            .attr("y", (d) => yScale(cumulative += d))
+            .attr("width", width)
+            .attr("height", (d) => height - yScale(d))
+            .attr("fill", "lightgrey")
+            .attr("stroke", "black")
+
+            .on('click', (e, d) => {
+                console.log(d);
+                max = d3.max(data)
+                Revisit.postAnswers({
+                    [taskID]: [d, max],
+                });
+
+                svg.selectAll("rect").style("fill", "lightgrey");
+                d3.select(e.target).transition().duration(200).style("fill", "steelblue");
+            });
+    });
+</script>
+
+</html>

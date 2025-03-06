@@ -1,0 +1,134 @@
+{
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.2/src/parser/StudyConfigSchema.json",
+  "studyMetadata": {
+    "title": "Visualization Study",
+    "version": "pilot",
+    "authors": [
+      "Zelda Ferris"
+    ],
+    "date": "2025-02-27",
+    "description": "A low budget recreation of Cleveland and McGill's study on graphical perception.",
+    "organizations": [
+      "WPI"
+    ]
+  },
+  "uiConfig": {
+    "contactEmail": "contact@revisit.dev",
+    "helpTextPath": "a3/assets/help.md",
+    "logoPath": "revisitAssets/revisitLogoSquare.svg",
+    "withProgressBar": true,
+    "autoDownloadStudy": false,
+    "sidebar": true
+  },
+  "baseComponents": {
+    "bar-chart": {
+      "type": "website",
+      "response": [
+        {
+          "id": "barChart",
+          "prompt": "Your selected answer:",
+          "location": "belowStimulus",
+          "type": "reactive", 
+          "hidden": true
+        }
+      ],
+      "path": "a3/assets/bar-chart.html",
+      "instructionLocation": "aboveStimulus"
+    },
+    "pie-chart": {
+      "type": "website",
+      "response": [
+        {
+          "id": "pieChart",
+          "prompt": "Your selected answer:",
+          "location": "belowStimulus",
+          "type": "reactive",
+          "hidden": true
+        }
+      ],
+      "path": "a3/assets/pi-chart.html",
+      "instructionLocation": "aboveStimulus"
+  },
+  "bar-chart-v": {
+    "type": "website",
+    "response": [
+      {
+        "id": "barChartV",
+        "prompt": "Your selected answer:",
+        "location": "belowStimulus",
+        "type": "reactive",
+        "hidden": true
+      }
+    ],
+    "path": "a3/assets/bar-chart-v.html",
+    "instructionLocation": "aboveStimulus"
+  },
+"stacked-bar": {
+  "type": "website",
+  "response": [
+    {
+      "id": "stackedBar",
+      "prompt": "Your selected answer:",
+      "location": "belowStimulus",
+      "type": "reactive",
+      "hidden": true
+    }
+  ],
+  "path": "a3/assets/stacked-bar.html",
+  "instructionLocation": "aboveStimulus"
+}
+},
+  "components": {
+    "welcome": {
+      "type": "markdown",
+      "path": "a3/assets/welcome.md",
+      "response": []
+    }, 
+    "bar-chart-1": {
+      "baseComponent": "bar-chart",
+      "description": "An interactive bar chart.",
+      "instruction": "Click on the largest section.",
+      "parameters": {
+        "barData": [1, 2, 3, 4, 5]
+      }
+    
+    },
+    "bar-chart-v-1": {
+      "baseComponent": "bar-chart-v",
+      "description": "An interactive bar chart.",
+      "instruction": "Click on the largest section.",
+      "parameters": {
+        "barData": [1, 2, 3, 4, 5]
+      }
+    
+    },
+    "pie-chart-1": {
+      "baseComponent": "pie-chart",
+      "description": "An interactive pie chart.",
+      "instruction": "Click on the largest section.",
+      "parameters": {
+        "pieData": [1, 2, 3, 4, 5]
+      }
+    },
+    "stacked-bar-1": {
+      "baseComponent": "stacked-bar",
+      "description": "An interactive pie chart.",
+      "instruction": "Click on the largest section.",
+      "parameters": {
+        "pieData": [1, 2, 3, 4, 5]
+      }
+    }
+  },
+  "sequence": {
+    "order": "fixed",
+    "components": ["welcome", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1",
+    "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1", "stacked-bar-1", "bar-chart-1", "pie-chart-1", "bar-chart-v-1"]
+  }
+}
